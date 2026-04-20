@@ -16,7 +16,7 @@
     
     <link rel="canonical" href="https://kompressor-new.vercel.app">
     
-    <!-- Google tag (gtag.js) - تم تثبيتها بشكل صحيح -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18085213292"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -25,16 +25,23 @@
       gtag('config', 'AW-18085213292');
     </script>
     
-    <!-- مقتطف حدث التحويل (خاص بصفحة الشكر فقط) - انسخه إلى صفحة الإحالة الناجحة -->
-    <!--
+    <!-- Event snippet for انقر للاتصال conversion -->
     <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
       gtag('event', 'conversion', {
-        'send_to': 'AW-18085213292/Ddn8CPOc9ZocEOzo2a9D',
-        'value': 1.0,
-        'currency': 'EGP'
+          'send_to': 'AW-18085213292/_AS5CNzNwJ8cEOzo2a9D',
+          'value': 1.0,
+          'currency': 'EGP',
+          'event_callback': callback
       });
+      return false;
+    }
     </script>
-    -->
     
     <!-- Schema Markup -->
     <script type="application/ld+json">
@@ -68,7 +75,6 @@
         .container-custom { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
         .section-padding { padding: 5rem 0; }
         
-        /* تصميم جديد بألوان (أزرق داكن + ذهبي محروق) */
         :root {
             --primary-dark: #0f172a;
             --primary-blue: #1e3a8a;
@@ -252,7 +258,7 @@
         <span class="text-3xl font-black block mb-6 dir-ltr">+966 56 310 9191</span>
         <div class="flex gap-3 justify-center flex-wrap">
             <button id="copyBtn" class="bg-amber-500 text-white px-5 py-2 rounded-xl font-bold" aria-label="نسخ الرقم"><i class="fas fa-copy"></i> نسخ</button>
-            <a href="tel:+966563109191" class="bg-green-600 text-white px-5 py-2 rounded-xl font-bold" aria-label="اتصال"><i class="fas fa-phone"></i> اتصال</a>
+            <a href="tel:+966563109191" id="directCallLink" class="bg-green-600 text-white px-5 py-2 rounded-xl font-bold" aria-label="اتصال"><i class="fas fa-phone"></i> اتصال</a>
             <button id="closeModal" class="bg-gray-200 px-5 py-2 rounded-xl font-bold" aria-label="إغلاق">إغلاق</button>
         </div>
         <div id="copySuccess" class="text-green-600 mt-3 hidden">✅ تم النسخ</div>
@@ -267,7 +273,6 @@
             <span class="font-black text-2xl text-gray-800">كمبروسور</span>
         </div>
         
-        <!-- روابط سطح المكتب -->
         <div class="nav-links">
             <a href="#services" class="nav-link"><i class="fas fa-wrench ml-1"></i> الخدمات</a>
             <a href="#features" class="nav-link"><i class="fas fa-star ml-1"></i> المميزات</a>
@@ -283,7 +288,6 @@
             <div class="mobile-menu-btn" id="mobileMenuBtn" aria-label="قائمة"><i class="fas fa-bars text-2xl text-gray-700"></i></div>
         </div>
     </div>
-    <!-- Mobile menu -->
     <div id="mobileNav" class="mobile-nav">
         <a href="#services"><i class="fas fa-wrench"></i> الخدمات</a>
         <a href="#features"><i class="fas fa-star"></i> المميزات</a>
@@ -294,7 +298,7 @@
     </div>
 </header>
 
-<!-- Hero Section بتصميم جديد -->
+<!-- Hero Section -->
 <section class="hero-gradient pt-32 pb-16 md:pt-40 md:pb-24">
     <div class="container-custom">
         <div class="flex flex-col md:flex-row items-center gap-12">
@@ -346,7 +350,6 @@
             <p class="text-gray-600 text-lg max-w-2xl mx-auto mb-12">نقدم حلولاً متكاملة لمشاكل الصرف الصحي بأحدث التقنيات</p>
         </div>
         <div class="grid md:grid-cols-3 gap-8">
-            <!-- خدمة 1 -->
             <div class="service-card-new reveal">
                 <div class="h-48 bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center"><i class="fas fa-water text-white text-6xl"></i></div>
                 <div class="p-6 text-center">
@@ -355,7 +358,6 @@
                     <button class="btn-outline call-button w-full">اطلب الخدمة <i class="fas fa-phone mr-1"></i></button>
                 </div>
             </div>
-            <!-- خدمة 2 -->
             <div class="service-card-new reveal">
                 <div class="h-48 bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center"><i class="fas fa-truck-ramp-box text-white text-6xl"></i></div>
                 <div class="p-6 text-center">
@@ -364,7 +366,6 @@
                     <button class="btn-outline call-button w-full">اطلب الخدمة <i class="fas fa-phone mr-1"></i></button>
                 </div>
             </div>
-            <!-- خدمة 3 -->
             <div class="service-card-new reveal">
                 <div class="h-48 bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center"><i class="fas fa-fill-drip text-white text-6xl"></i></div>
                 <div class="p-6 text-center">
@@ -454,11 +455,56 @@
     const copyBtn = document.getElementById('copyBtn');
     const closeModal = document.getElementById('closeModal');
     const copySuccessDiv = document.getElementById('copySuccess');
+    const directCallLink = document.getElementById('directCallLink');
     
-    function showModal() { if(modal) modal.style.display = 'flex'; }
-    function handleCall() { if(/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) window.location.href = `tel:${phone}`; else showModal(); }
-    document.querySelectorAll('.call-button').forEach(btn => btn.addEventListener('click', handleCall));
-    if(copyBtn) copyBtn.addEventListener('click', () => { navigator.clipboard.writeText(phone); if(copySuccessDiv) copySuccessDiv.classList.remove('hidden'); setTimeout(() => { if(copySuccessDiv) copySuccessDiv.classList.add('hidden'); }, 2000); });
+    // دالة لعرض المودال (لأجهزة سطح المكتب)
+    function showModal() {
+        if(modal) modal.style.display = 'flex';
+    }
+    
+    // دالة موحدة للتعامل مع النقر على أزرار الاتصال مع تتبع التحويل
+    function handleCallWithConversion(event) {
+        event.preventDefault();
+        // تسجيل حدث التحويل في Google Ads
+        gtag_report_conversion(undefined); // undefined لأننا لا نريد توجيه المتصفح فوراً، بل نتعامل يدوياً
+        // بعد تسجيل الحدث، نقوم بتنفيذ الإجراء المناسب (مودال أو اتصال مباشر)
+        if(/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            // جهاز محمول: ننتظر قليلاً لضمان إرسال الحدث ثم ننتقل لرابط الاتصال
+            setTimeout(function() {
+                window.location.href = `tel:${phone}`;
+            }, 300);
+        } else {
+            // سطح المكتب: نعرض المودال
+            showModal();
+        }
+    }
+    
+    // ربط جميع الأزرار التي تحمل class="call-button"
+    document.querySelectorAll('.call-button').forEach(btn => {
+        btn.addEventListener('click', handleCallWithConversion);
+    });
+    
+    // رابط الاتصال المباشر داخل المودال يجب أن يسجل الحدث أيضاً
+    if(directCallLink) {
+        directCallLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            gtag_report_conversion(`tel:${phone}`);
+            // بعد تسجيل الحدث، ننتقل للرابط
+            setTimeout(function() {
+                window.location.href = `tel:${phone}`;
+            }, 300);
+        });
+    }
+    
+    // نسخ الرقم
+    if(copyBtn) {
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(phone);
+            if(copySuccessDiv) copySuccessDiv.classList.remove('hidden');
+            setTimeout(() => { if(copySuccessDiv) copySuccessDiv.classList.add('hidden'); }, 2000);
+        });
+    }
+    
     if(closeModal) closeModal.addEventListener('click', () => { if(modal) modal.style.display = 'none'; });
     if(modal) modal.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
     
