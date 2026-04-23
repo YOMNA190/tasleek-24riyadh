@@ -16,7 +16,7 @@
     
     <link rel="canonical" href="https://kompressor-new.vercel.app">
     
-    <!-- Google tag (gtag.js) -->
+    <!-- ========== Google tag (gtag.js) - التتبع الأساسي ========== -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18085213292"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -25,7 +25,7 @@
       gtag('config', 'AW-18085213292');
     </script>
     
-    <!-- Event snippet for انقر للاتصال conversion -->
+    <!-- ========== Event snippet for انقر للاتصال (1) conversion - مهم جداً ========== -->
     <script>
     function gtag_report_conversion(url) {
       var callback = function () {
@@ -34,7 +34,7 @@
         }
       };
       gtag('event', 'conversion', {
-          'send_to': 'AW-18085213292/_AS5CNzNwJ8cEOzo2a9D',
+          'send_to': 'AW-18085213292/Zn9_CIj0jaEcEOzo2a9D',
           'value': 1.0,
           'currency': 'EGP',
           'event_callback': callback
@@ -457,42 +457,61 @@
     const copySuccessDiv = document.getElementById('copySuccess');
     const directCallLink = document.getElementById('directCallLink');
     
-    // دالة لعرض المودال (لأجهزة سطح المكتب)
+    // دالة عرض المودال
     function showModal() {
         if(modal) modal.style.display = 'flex';
     }
     
-    // دالة موحدة للتعامل مع النقر على أزرار الاتصال مع تتبع التحويل
+    // ========== الدالة الأساسية - بتاعة الاتصال مع تتبع التحويل ==========
     function handleCallWithConversion(event) {
-        event.preventDefault();
+        if(event) event.preventDefault();
+        
         // تسجيل حدث التحويل في Google Ads
-        gtag_report_conversion(undefined); // undefined لأننا لا نريد توجيه المتصفح فوراً، بل نتعامل يدوياً
-        // بعد تسجيل الحدث، نقوم بتنفيذ الإجراء المناسب (مودال أو اتصال مباشر)
-        if(/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-            // جهاز محمول: ننتظر قليلاً لضمان إرسال الحدث ثم ننتقل لرابط الاتصال
-            setTimeout(function() {
-                window.location.href = `tel:${phone}`;
-            }, 300);
+        if(typeof gtag_report_conversion === 'function') {
+            gtag_report_conversion(undefined);
         } else {
-            // سطح المكتب: نعرض المودال
-            showModal();
+            gtag('event', 'conversion', {
+                'send_to': 'AW-18085213292/Zn9_CIj0jaEcEOzo2a9D',
+                'value': 1.0,
+                'currency': 'EGP'
+            });
         }
+        
+        // بعد تسجيل الحدث، ننتظر شوية وبعدين ننفذ الإجراء المناسب
+        setTimeout(function() {
+            if(/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                // جهاز محمول -> اتصال مباشر
+                window.location.href = `tel:${phone}`;
+            } else {
+                // سطح مكتب -> نعرض المودال
+                showModal();
+            }
+        }, 200);
     }
     
-    // ربط جميع الأزرار التي تحمل class="call-button"
+    // ربط جميع أزرار الاتصال الموجودة في الصفحة
     document.querySelectorAll('.call-button').forEach(btn => {
+        btn.removeEventListener('click', handleCallWithConversion);
         btn.addEventListener('click', handleCallWithConversion);
     });
     
-    // رابط الاتصال المباشر داخل المودال يجب أن يسجل الحدث أيضاً
+    // تجهيز رابط "اتصال مباشر" داخل المودال عشان يسجل التحويل برضه
     if(directCallLink) {
+        directCallLink.removeEventListener('click', handleCallWithConversion);
         directCallLink.addEventListener('click', function(e) {
             e.preventDefault();
-            gtag_report_conversion(`tel:${phone}`);
-            // بعد تسجيل الحدث، ننتقل للرابط
+            if(typeof gtag_report_conversion === 'function') {
+                gtag_report_conversion(`tel:${phone}`);
+            } else {
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-18085213292/Zn9_CIj0jaEcEOzo2a9D',
+                    'value': 1.0,
+                    'currency': 'EGP'
+                });
+            }
             setTimeout(function() {
                 window.location.href = `tel:${phone}`;
-            }, 300);
+            }, 200);
         });
     }
     
@@ -508,17 +527,25 @@
     if(closeModal) closeModal.addEventListener('click', () => { if(modal) modal.style.display = 'none'; });
     if(modal) modal.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
     
-    // Reveal on scroll
+    // حركة الظهور عند التمرير (Reveal)
     const reveals = document.querySelectorAll('.reveal');
-    function checkReveal() { reveals.forEach(el => { if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active'); }); }
+    function checkReveal() {
+        reveals.forEach(el => {
+            if(el.getBoundingClientRect().top < window.innerHeight - 100) {
+                el.classList.add('active');
+            }
+        });
+    }
     window.addEventListener('scroll', checkReveal);
     checkReveal();
     
-    // Mobile menu
+    // قائمة الجوال
     const menuBtn = document.getElementById('mobileMenuBtn');
     const mobileNav = document.getElementById('mobileNav');
     if(menuBtn && mobileNav) {
-        menuBtn.addEventListener('click', () => { mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex'; });
+        menuBtn.addEventListener('click', () => {
+            mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex';
+        });
         document.querySelectorAll('#mobileNav a').forEach(link => link.addEventListener('click', () => mobileNav.style.display = 'none'));
     }
 </script>
