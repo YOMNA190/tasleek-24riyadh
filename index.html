@@ -29,26 +29,23 @@
     
     <link rel="canonical" href="https://kompressor-new.vercel.app">
     
-    <!-- Google tag (gtag.js) & التحويل -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18085213292"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'AW-18085213292');
-      
-      // دالة التحويل للاتصال
-      function gtag_report_conversion(url) {
-        var callback = function () {
-          if (typeof(url) != 'undefined') window.location = url;
-        };
-        gtag('event', 'conversion', {
-            'send_to': 'AW-18085213292/_AS5CNzNwJ8cEOzo2a9D',
-            'value': 1.0,
-            'currency': 'EGP',
-            'event_callback': callback
-        });
-        return false;
+
+      // Conversion tracking functions
+      function trackGeneralConversion() {
+        gtag('event', 'conversion', { 'send_to': 'AW-18085213292/EmPxCIOVqcIcEOzo2a9D', 'value': 1.0, 'currency': 'EGP' });
+      }
+      function trackPhoneClickPrimary() {
+        gtag('event', 'conversion', { 'send_to': 'AW-18085213292/IrvcCImVqcIcEOzo2a9D', 'value': 1.0, 'currency': 'EGP' });
+      }
+      function trackWhatsAppClick() {
+        gtag('event', 'conversion', { 'send_to': 'AW-18085213292/bd7nCIyVqcIcEOzo2a9D', 'value': 1.0, 'currency': 'EGP' });
       }
     </script>
     
@@ -127,7 +124,7 @@
 <body class="bg-white text-gray-800">
 
 <!-- واتساب عائم -->
-<a href="https://wa.me/966531363441" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 left-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg z-50 hover:scale-110 transition-transform duration-200" aria-label="واتساب">
+<a href="https://wa.me/966531363441" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 left-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg z-50 hover:scale-110 transition-transform duration-200 whatsapp-track" aria-label="واتساب">
     <i class="fab fa-whatsapp"></i>
 </a>
 
@@ -166,7 +163,7 @@
         </div>
         
         <div class="flex gap-3 items-center">
-            <a href="https://wa.me/966531363441" target="_blank" class="hidden md:flex bg-green-500 text-white px-4 py-2 rounded-xl font-semibold items-center gap-2 hover:bg-green-600 transition"><i class="fab fa-whatsapp"></i> واتساب</a>
+            <a href="https://wa.me/966531363441" target="_blank" class="hidden md:flex bg-green-500 text-white px-4 py-2 rounded-xl font-semibold items-center gap-2 hover:bg-green-600 transition whatsapp-track"><i class="fab fa-whatsapp"></i> واتساب</a>
             <button class="bg-gradient-to-r from-amber-500 to-amber-700 text-white font-bold px-5 py-2 rounded-xl shadow-md call-button flex items-center gap-2 hover:scale-105 transition"><i class="fas fa-phone"></i> <span class="hidden sm:inline">اتصل الآن</span></button>
             <div class="md:hidden cursor-pointer text-2xl text-gray-700" id="mobileMenuBtn"><i class="fas fa-bars"></i></div>
         </div>
@@ -209,13 +206,13 @@
         </div>
     </section>
 
-    <!-- خدماتنا (مع صور أيقونات بدل صور حقيقية للحفاظ على السرعة) -->
+    <!-- خدماتنا -->
     <section id="services" class="py-16 bg-gray-50">
         <div class="container mx-auto px-4 md:px-6 text-center">
             <h2 class="text-3xl md:text-4xl font-bold relative inline-block after:content-[''] after:absolute after:-bottom-3 after:right-0 after:w-20 after:h-1 after:bg-amber-500 after:rounded-full">خدماتنا الاحترافية</h2>
             <p class="text-gray-600 max-w-2xl mx-auto mt-6 mb-12 text-lg">نقدم حلولاً متكاملة لمشاكل الصرف الصحي بأحدث التقنيات</p>
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300"><div class="h-48 bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center"><i class="fas fa-water text-white text-6xl"></i></div><div class="p-6"><h3 class="text-2xl font-bold mb-2">تسليك المجاري بالكمبروسر</h3><p class="text-gray-600 mb-4">ضغط ماء يصل 4000 PSI • بدون تكسير • ضمان 30 يوم</p><button class="w-full py-2 border-2 border-amber-500 text-amber-600 rounded-full font-semibold hover:bg-amber-500 hover:text-white transition call-button"><i class="fas fa-phone ml-1"></i> اطلب الخدمة</button></div></div>
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300"><div class="h-48 bg-gradient-to-br from-amber-600 to-amber-800 flex items-center justify-center"><i class="fas fa-faucet-drip text-white text-6xl"></i></div><div class="p-6"><h3 class="text-2xl font-bold mb-2">تسليك مجاري بالكمبروسر</h3><p class="text-gray-600 mb-4">تقنية الضغط العالي • بدون تكسير • إزالة الدهون</p><button class="call-button w-full py-2 bg-amber-500 text-white rounded-full font-semibold hover:bg-amber-600 transition"><i class="fas fa-phone ml-1"></i> اطلب الخدمة</button></div></div>
                 <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300"><div class="h-48 bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center"><i class="fas fa-truck-ramp-box text-white text-6xl"></i></div><div class="p-6"><h3 class="text-2xl font-bold mb-2">شفط وتنظيف البيارات</h3><p class="text-gray-600 mb-4">أحدث شاحنات الشفط • تعقيم كامل • التخلص الآمن</p><button class="call-button w-full py-2 border-2 border-amber-500 text-amber-600 rounded-full font-semibold hover:bg-amber-500 hover:text-white transition"><i class="fas fa-phone ml-1"></i> اطلب الخدمة</button></div></div>
                 <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300"><div class="h-48 bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center"><i class="fas fa-fill-drip text-white text-6xl"></i></div><div class="p-6"><h3 class="text-2xl font-bold mb-2">تنظيف وتعقيم الخزانات</h3><p class="text-gray-600 mb-4">مواد معتمدة • شهادة صحية • خزانات أرضية وعلوية</p><button class="call-button w-full py-2 border-2 border-amber-500 text-amber-600 rounded-full font-semibold hover:bg-amber-500 hover:text-white transition"><i class="fas fa-phone ml-1"></i> اطلب الخدمة</button></div></div>
             </div>
@@ -243,7 +240,7 @@
         </div>
     </section>
 
-    <!-- الأسعار التقديرية (لإضافة روابط Sitelinks) -->
+    <!-- الأسعار التقديرية -->
     <section id="pricing" class="py-16">
         <div class="container mx-auto px-4 text-center"><h2 class="text-3xl md:text-4xl font-bold relative inline-block after:content-[''] after:absolute after:-bottom-3 after:right-0 after:w-20 after:h-1 after:bg-amber-500 after:rounded-full">أسعار تنافسية تناسب الجميع</h2><p class="text-gray-600 max-w-2xl mx-auto mt-4">نقدم عروض أسعار شفافة بدون رسوم خفية. اتصل بنا لمعرفة السعر المناسب لخدمتك.</p>
             <div class="grid md:grid-cols-3 gap-6 mt-10 max-w-3xl mx-auto">
@@ -254,7 +251,7 @@
         </div>
     </section>
 
-    <!-- عروض خاصة (لإثراء Sitelinks) -->
+    <!-- عروض خاصة -->
     <section id="offers" class="py-16 bg-gradient-to-r from-amber-50 to-amber-100">
         <div class="container mx-auto px-4 text-center"><h2 class="text-3xl md:text-4xl font-bold text-gray-800">🎁 عروض خاصة لعملائنا</h2><p class="text-lg mt-2">خصم 20% على أول خدمة عند الاتصال المباشر الآن + ضمان مجاني لمدة 30 يومًا إضافية.</p>
             <button class="mt-6 bg-amber-600 text-white px-8 py-3 rounded-full font-bold shadow-lg call-button"><i class="fas fa-gift ml-1"></i> احصل على العرض</button>
@@ -289,7 +286,7 @@
     </section>
 </main>
 
-<!-- Footer مع روابط Sitelinks إضافية -->
+<!-- Footer -->
 <footer class="bg-white border-t py-6 text-gray-500 text-sm">
     <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
         <div class="text-center md:text-right">جميع الحقوق محفوظة © كمبروسور اكسبريس 2026 | تسليك مجاري - شفط بيارات - تنظيف خزانات بالرياض</div>
@@ -315,9 +312,15 @@
     function showModal() { if(modal) modal.style.display = 'flex'; }
     function hideModal() { if(modal) modal.style.display = 'none'; }
 
+    // Event Handler for Phone Clicks
     function handleCallWithConversion(event) {
         if(event) event.preventDefault();
-        gtag_report_conversion(undefined);
+        
+        // Track Primary Click Conversion
+        trackPhoneClickPrimary();
+        // Track General Conversion
+        trackGeneralConversion();
+
         if(/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
             setTimeout(() => window.location.href = `tel:${phone}`, 200);
         } else {
@@ -325,15 +328,29 @@
         }
     }
 
+    // Event Handler for WhatsApp Clicks
+    function handleWhatsAppWithConversion(event) {
+        // Track WhatsApp Click Conversion
+        trackWhatsAppClick();
+        // Track General Conversion
+        trackGeneralConversion();
+    }
+
+    // Attach Phone Click Handlers
     document.querySelectorAll('.call-button').forEach(btn => {
-        btn.removeEventListener('click', handleCallWithConversion);
         btn.addEventListener('click', handleCallWithConversion);
+    });
+
+    // Attach WhatsApp Click Handlers
+    document.querySelectorAll('.whatsapp-track').forEach(link => {
+        link.addEventListener('click', handleWhatsAppWithConversion);
     });
 
     if(directCallLink) {
         directCallLink.addEventListener('click', function(e) {
             e.preventDefault();
-            gtag_report_conversion(`tel:${phone}`);
+            trackPhoneClickPrimary();
+            trackGeneralConversion();
             setTimeout(() => window.location.href = `tel:${phone}`, 200);
         });
     }
