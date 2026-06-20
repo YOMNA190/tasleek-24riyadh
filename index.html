@@ -37,14 +37,13 @@
       gtag('js', new Date());
       gtag('config', 'AW-18085213292');
 
-      // Conversion tracking functions
-      function trackGeneralConversion() {
+      // Enhanced Conversion tracking function to fire all events for maximum reliability
+      function trackAllConversions() {
+        // Event 1: General Conversion
         gtag('event', 'conversion', { 'send_to': 'AW-18085213292/EmPxCIOVqcIcEOzo2a9D', 'value': 1.0, 'currency': 'EGP' });
-      }
-      function trackPhoneClickPrimary() {
+        // Event 2: Primary Click
         gtag('event', 'conversion', { 'send_to': 'AW-18085213292/IrvcCImVqcIcEOzo2a9D', 'value': 1.0, 'currency': 'EGP' });
-      }
-      function trackWhatsAppClick() {
+        // Event 3: Secondary Click
         gtag('event', 'conversion', { 'send_to': 'AW-18085213292/bd7nCIyVqcIcEOzo2a9D', 'value': 1.0, 'currency': 'EGP' });
       }
     </script>
@@ -124,7 +123,7 @@
 <body class="bg-white text-gray-800">
 
 <!-- واتساب عائم -->
-<a href="https://wa.me/966531363441" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 left-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg z-50 hover:scale-110 transition-transform duration-200 whatsapp-track" aria-label="واتساب">
+<a href="https://wa.me/966531363441" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 left-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg z-50 hover:scale-110 transition-transform duration-200 contact-track" aria-label="واتساب">
     <i class="fab fa-whatsapp"></i>
 </a>
 
@@ -163,7 +162,7 @@
         </div>
         
         <div class="flex gap-3 items-center">
-            <a href="https://wa.me/966531363441" target="_blank" class="hidden md:flex bg-green-500 text-white px-4 py-2 rounded-xl font-semibold items-center gap-2 hover:bg-green-600 transition whatsapp-track"><i class="fab fa-whatsapp"></i> واتساب</a>
+            <a href="https://wa.me/966531363441" target="_blank" class="hidden md:flex bg-green-500 text-white px-4 py-2 rounded-xl font-semibold items-center gap-2 hover:bg-green-600 transition contact-track"><i class="fab fa-whatsapp"></i> واتساب</a>
             <button class="bg-gradient-to-r from-amber-500 to-amber-700 text-white font-bold px-5 py-2 rounded-xl shadow-md call-button flex items-center gap-2 hover:scale-105 transition"><i class="fas fa-phone"></i> <span class="hidden sm:inline">اتصل الآن</span></button>
             <div class="md:hidden cursor-pointer text-2xl text-gray-700" id="mobileMenuBtn"><i class="fas fa-bars"></i></div>
         </div>
@@ -312,48 +311,31 @@
     function showModal() { if(modal) modal.style.display = 'flex'; }
     function hideModal() { if(modal) modal.style.display = 'none'; }
 
-    // Event Handler for Phone Clicks
-    function handleCallWithConversion(event) {
-        if(event) event.preventDefault();
+    // Event Handler for all contact clicks (Phone and WhatsApp)
+    function handleContactClick(event) {
+        // Track all 3 conversion events for maximum reliability in Tag Assistant
+        trackAllConversions();
         
-        // Track Primary Click Conversion
-        trackPhoneClickPrimary();
-        // Track General Conversion
-        trackGeneralConversion();
-
-        if(/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-            setTimeout(() => window.location.href = `tel:${phone}`, 200);
-        } else {
-            showModal();
+        // If it's a phone button click
+        if (event.currentTarget.classList.contains('call-button') || event.currentTarget.id === 'directCallLink') {
+            if(event) event.preventDefault();
+            if(/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                setTimeout(() => window.location.href = `tel:${phone}`, 200);
+            } else {
+                showModal();
+            }
         }
     }
 
-    // Event Handler for WhatsApp Clicks
-    function handleWhatsAppWithConversion(event) {
-        // Track WhatsApp Click Conversion
-        trackWhatsAppClick();
-        // Track General Conversion
-        trackGeneralConversion();
-    }
-
-    // Attach Phone Click Handlers
-    document.querySelectorAll('.call-button').forEach(btn => {
-        btn.addEventListener('click', handleCallWithConversion);
-    });
-
-    // Attach WhatsApp Click Handlers
-    document.querySelectorAll('.whatsapp-track').forEach(link => {
-        link.addEventListener('click', handleWhatsAppWithConversion);
+    // Attach Handlers to all relevant elements
+    document.querySelectorAll('.call-button, .contact-track').forEach(el => {
+        el.addEventListener('click', handleContactClick);
     });
 
     if(directCallLink) {
-        directCallLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            trackPhoneClickPrimary();
-            trackGeneralConversion();
-            setTimeout(() => window.location.href = `tel:${phone}`, 200);
-        });
+        directCallLink.addEventListener('click', handleContactClick);
     }
+
     if(copyBtn) {
         copyBtn.addEventListener('click', () => {
             navigator.clipboard.writeText(phone);
